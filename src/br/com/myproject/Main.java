@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Exchange exchange = new Exchange();
-        String str = exchange.change("USD");
+        String str = exchange.changePair("USD", "BRL", 1.00);
         System.out.println(str);
     }
 }

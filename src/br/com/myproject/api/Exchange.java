@@ -20,17 +20,16 @@ public class Exchange {
         client = HttpClient.newHttpClient();
     }
 
-    public String change(String base_currency) throws IOException, InterruptedException {
-        request = HttpRequest.newBuilder()
-                .uri(getRequestAddress(base_currency))
-                .build();
-
-        response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return response.body();
+    public String changePair(String base_currency, String target_currency, double amount) throws IOException, InterruptedException {
+        URI uri = URI.create(API_acess + API_key + "/pair/" + base_currency + "/" + target_currency + "/" + amount);
+        return getRequest(uri).body();
     }
 
-    private URI getRequestAddress(String base_currency) {
-        return URI.create(API_acess + API_key + "/latest/" + base_currency);
+    private HttpResponse<String> getRequest(URI requestAddress) throws IOException, InterruptedException {
+        request = HttpRequest.newBuilder()
+                .uri(requestAddress)
+                .build();
+        return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
 }
