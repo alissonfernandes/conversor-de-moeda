@@ -1,5 +1,8 @@
 package br.com.myproject.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -20,9 +23,9 @@ public class Exchange {
         client = HttpClient.newHttpClient();
     }
 
-    public String changePair(String base_currency, String target_currency, double amount) throws IOException, InterruptedException {
+    public Result changePair(String base_currency, String target_currency, double amount) throws IOException, InterruptedException {
         URI uri = URI.create(API_acess + API_key + "/pair/" + base_currency + "/" + target_currency + "/" + amount);
-        return getRequest(uri).body();
+        return toResult(getRequest(uri).body());
     }
 
     private HttpResponse<String> getRequest(URI requestAddress) throws IOException, InterruptedException {
@@ -30,6 +33,11 @@ public class Exchange {
                 .uri(requestAddress)
                 .build();
         return client.send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
+    private Result toResult(String to) {
+        Gson gson = new GsonBuilder().create();
+        return gson.fromJson(to, Result.class);
     }
 
 }
