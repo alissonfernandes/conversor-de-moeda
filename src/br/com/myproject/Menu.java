@@ -25,7 +25,7 @@ public class Menu {
         System.out.println("3) [USD] Dolar Norte Americano  >> [BRL] Real Brasileiro");
         System.out.println("4) [USD] Dolar Norte Americano  >> [EUR] Euro");
         System.out.println("5) [EUR] Euro                   >> [BRL] Real Brasileiro");
-        System.out.println("6) [EUR] Euro                   >> [USD] Dolar Norte Americano"  );
+        System.out.println("6) [EUR] Euro                   >> [USD] Dolar Norte Americano");
         System.out.println("7) Sair");
     }
 
@@ -49,6 +49,15 @@ public class Menu {
                 break;
             case 3:
                 showResult(exchange.changePair("USD", "BRL", amount));
+                break;
+            case 4:
+                showResult(exchange.changePair("USD", "EUR", amount));
+                break;
+            case 5:
+                showResult(exchange.changePair("EUR", "BRL", amount));
+                break;
+            case 6:
+                showResult(exchange.changePair("EUR", "USD", amount));
                 break;
         }
     }
